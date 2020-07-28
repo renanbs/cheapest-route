@@ -1,26 +1,9 @@
+import csv
+
 inf = float('inf')
 
 start = 'GRU'
 stop = 'CDG'
-
-graph = {
-    'GRU': {
-        'BRC': 10,
-        'CDG': 75,
-        'SCL': 20,
-        'ORL': 56
-    },
-    'BRC': {
-        'SCL': 5,
-    },
-    'ORL': {
-        'CDG': 5
-    },
-    'SCL': {
-        'ORL': 20
-    },
-    'CDG': {}
-}
 
 costs = {}
 parents = {}
@@ -48,7 +31,6 @@ def get_the_path():
     if not costs[stop] < inf:
         return 'A path could not be found'
 
-
     path = [stop]
     i = 0
     while start not in path:
@@ -57,14 +39,35 @@ def get_the_path():
     return f'The shortest path is {path[::-1]}'
 
 
-if __name__ == '__main__':
-    import csv
-
-    with open('testfile.csv', newline='') as csvfile:
+def read_csv():
+    with open('input-file.txt', newline='') as csvfile:
         data = list(csv.reader(csvfile))
 
-    print(data)
+    return data
 
+
+def _load_all_nodes(data):
+    graph = {}
+    for node in data:
+        if node[0] not in graph:
+            graph[node[0]] = dict()
+        if node[1] not in graph:
+            graph[node[1]] = dict()
+    return graph
+
+
+def process_csv_file(data):
+    graph = _load_all_nodes(data)
+
+    for edge in data:
+        cost = {edge[1]: int(edge[2])}
+        graph[edge[0]].update(cost)
+    return graph
+
+
+if __name__ == '__main__':
+    data = read_csv()
+    graph = process_csv_file(data)
 
     initialize_algorithm(costs, parents, graph)
 
@@ -73,10 +76,10 @@ if __name__ == '__main__':
     while not_checked:
         print(f'Not checked: {not_checked}')
         cost = costs[node]
-        child_cost = graph[node]
-        for c in child_cost:
-            if costs[c] > cost + child_cost[c]:
-                costs[c] = cost + child_cost[c]
+        child_costs = graph[node]
+        for c in child_costs:
+            if costs[c] > cost + child_costs[c]:
+                costs[c] = cost + child_costs[c]
                 parents[c] = node
 
         not_checked.pop(not_checked.index(node))
