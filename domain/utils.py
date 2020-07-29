@@ -1,4 +1,4 @@
-from api.repository.file import read_csv
+from repository.file import read_csv
 
 
 def _load_all_nodes(data):

@@ -1,8 +1,8 @@
-class ShortestPathServiceException(Exception):
+class CheapestRouteServiceException(Exception):
     pass
 
 
-class ShortestPathService:
+class CheapestRouteService:
     def __init__(self, graph, start, end):
         self.graph = graph
         self.start = start
@@ -14,7 +14,7 @@ class ShortestPathService:
 
     def _initialize(self):
         if self.start not in self.graph or self.end not in self.graph:
-            raise ShortestPathServiceException('Invalid starting/ending node')
+            raise CheapestRouteServiceException('Invalid starting/ending node')
 
         for node in self.graph:
             self.costs[node] = float('inf')
@@ -27,7 +27,7 @@ class ShortestPathService:
         cheapest_node = None
         lowest_cost = float('inf')
         for node in not_checked_nodes:
-            if cost_to_node[node] < lowest_cost:
+            if cost_to_node[node] <= lowest_cost:
                 lowest_cost = cost_to_node[node]
                 cheapest_node = node
         return cheapest_node

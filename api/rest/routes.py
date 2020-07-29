@@ -1,6 +1,6 @@
 from flask import Blueprint, request, json
 
-from domain.shortest_path_service import ShortestPathService
+from api.service import get_cheapest_route_api, RouteServiceException
 
 bp = Blueprint('routes', __name__, url_prefix='/')
 
@@ -10,10 +10,11 @@ def cheapest_route():
     data = json.loads(request.data)
     start = data.get('start')
     end = data.get('end')
-    graph = {}
-    sps = ShortestPathService(graph, start, end)
 
-    return f'{start}'
+    try:
+        return get_cheapest_route_api(start, end)
+    except RouteServiceException as ex:
+        return {'msg': str(ex)}
 
 
 @bp.route('/routes', methods=['POST'])
