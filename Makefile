@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := default_target
 
-PROJECT_NAME := shortest_path
+PROJECT_NAME := cheapest_route
 PYTHON_VERSION := 3.8.5
 VENV_NAME := $(PROJECT_NAME)-$(PYTHON_VERSION)
 
@@ -40,18 +40,8 @@ create-venv: .create-venv setup-dev
 
 clean: .clean-build .clean-pyc .clean-test ## remove all build, test, coverage and Python artifacts
 
-pycodestyle:
-	echo "Running pycodestyle"
-	pycodestyle
-
-flake8:
-	echo "Running flake8"
-	flake8
-
-code-convention: pycodestyle flake8
-
 test:
 	# "Running unit tests"
-	pytest -v --cov-report=term-missing --cov-report=html --cov-report=xml --cov=. --cov-fail-under=83
+	pytest -v
 
-default_target: clean code-convention test
+default_target: clean test

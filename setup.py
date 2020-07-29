@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-setup(name='shortest-path',
+setup(name='cheapest-route',
       description='A basic Dijkstra implementation',
       long_description='A basic Dijkstra implementation, that use a REST API and a command line.'
                        'The project is organized following a Domain Driven Design approach.',
