@@ -33,5 +33,7 @@ class CsvRepo:
         data = self._read_csv()
         return self._process_csv_file(data)
 
-    def add_line(self):
-        pass
+    def add_line(self, line: list):
+        with open(self.filename, mode='a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(line)
