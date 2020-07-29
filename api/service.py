@@ -1,7 +1,8 @@
 import os
 
 from domain.cheapest_route_service import CheapestRouteService
-from domain.utils import load_csv_into_graph
+# from domain.utils import load_csv_into_graph
+from repository.csv_repo import CsvRepo
 
 
 class RouteServiceException(Exception):
@@ -18,8 +19,8 @@ def _get_cheapest_route(graph, start, end) -> (str, str):
 
 
 def get_cheapest_route_api(start, end) -> dict:
-
-    graph = load_csv_into_graph('input-file.txt')
+    repo = CsvRepo('input-file.txt')
+    graph = repo.load_csv_into_graph()
 
     route, cost = _get_cheapest_route(graph, start, end)
     return {'best_route': route, 'cost': f'${cost}'}
@@ -29,5 +30,6 @@ def get_cheapest_route_cmd_line(filename, start, end) -> (str, str):
     if not os.path.exists(filename):
         raise RouteServiceException(f'Couldn\'t find {filename}')
 
-    graph = load_csv_into_graph('input-file.txt')
+    repo = CsvRepo(filename)
+    graph = repo.load_csv_into_graph()
     return _get_cheapest_route(graph, start, end)
