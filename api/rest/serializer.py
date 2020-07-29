@@ -15,7 +15,7 @@ class ApiSerializer:
             raise ApiSerializerException(f'{key} is required')
 
     def get(self, key):
-        return self.data[key]
+        return self.data[key].upper()
 
     def is_valid(self):
         self._has_valid_data('start')

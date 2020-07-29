@@ -1,3 +1,4 @@
+from api.cmd.serializer import CmdSerializerException, CmdSerializer
 from api.service import get_cheapest_route_cmd_line, RouteServiceException
 from domain.cheapest_route_service import CheapestRouteServiceException
 
@@ -11,16 +12,11 @@ def process(arguments):
 
     try:
         entered_input = input('please enter the route: ')
-        splitted = entered_input.split('-')
-        start = splitted[0].upper()
-        end = splitted[1].upper()
-    except IndexError:
-        print('\nYou need to enter the route in the following format: START-END')
-        exit(-1)
+        serializer = CmdSerializer(entered_input)
+        serializer.is_valid()
 
-    try:
-        route, cost = get_cheapest_route_cmd_line(filename, start, end)
-    except (RouteServiceException, CheapestRouteServiceException) as ex:
+        route, cost = get_cheapest_route_cmd_line(filename, serializer.get('start'), serializer.get('end'))
+    except (RouteServiceException, CheapestRouteServiceException, CmdSerializerException) as ex:
         print(f'\n{str(ex)}')
         exit(-1)
 
