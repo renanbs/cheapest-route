@@ -143,6 +143,7 @@ Cadatro de novas rotas
 ### Linha de comando
 
 A linha abaixo, como descrita anteriormente realiza a busca da rota mais barata após a entrada destes dados no formato `START-END`
+
 ```bash
 $ python command_line.py input-file.csv
 please enter the route: GRU-CDG
