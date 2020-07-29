@@ -6,7 +6,7 @@ VENV_NAME := $(PROJECT_NAME)-$(PYTHON_VERSION)
 
 setup-dev:
 	pip install pip --upgrade
-	pip install -U setuptools
+	pip install -U setuptools wheel==0.34.2
 	pip install -r requirements-dev.txt
 
 .create-venv:
