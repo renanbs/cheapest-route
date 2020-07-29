@@ -6,7 +6,7 @@ from domain.cheapest_route_service import CheapestRouteServiceException
 def process(arguments):
     if len(arguments) != 2:
         print(f'\nYou need to provide a input file. \n\nEx.: python {arguments[0]} my-file.csv')
-        exit(-1)
+        return -1
 
     filename = arguments[1]
 
@@ -18,6 +18,6 @@ def process(arguments):
         route, cost = get_cheapest_route_cmd_line(filename, serializer.get('start'), serializer.get('end'))
     except (RouteServiceException, CheapestRouteServiceException, CmdSerializerException) as ex:
         print(f'\n{str(ex)}')
-        exit(-1)
+        return -1
 
     print(f'best route: {route} > ${cost}')

@@ -15,8 +15,8 @@ setup(name='shortest-path',
       extras_require={
           'dev': [
               'pytest>=5.4.3',
-              'requests-mock>=1.8.0',
               'pytest-mock>=3.1.1',
+              'pytest-lazy-fixture>=0.6.3',
           ],
       }
       )
