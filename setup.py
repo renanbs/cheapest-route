@@ -8,7 +8,8 @@ setup(name='shortest-path',
       package_data={'': ['*.yaml']},
       version='1.0.0',
       install_requires=[
-        'wheel==0.34.2',
+          'wheel==0.34.2',
+          'flask==1.1.2',
       ],
       extras_require={
           'dev': [

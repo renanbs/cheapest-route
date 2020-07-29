@@ -1,8 +1,8 @@
 import os
 import sys
 
-from services.shortest_path_service import ShortestPathService
-from services.utils import load_csv_into_graph
+from domain.shortest_path_service import ShortestPathService
+from domain.utils import load_csv_into_graph
 
 if __name__ == '__main__':
 

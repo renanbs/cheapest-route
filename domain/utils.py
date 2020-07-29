@@ -1,11 +1,4 @@
-import csv
-
-
-def _read_csv(filename):
-    with open(filename, newline='') as csvfile:
-        data = list(csv.reader(csvfile))
-
-    return data
+from api.repository.file import read_csv
 
 
 def _load_all_nodes(data):
@@ -28,5 +21,5 @@ def _process_csv_file(data):
 
 
 def load_csv_into_graph(filename) -> dict:
-    data = _read_csv(filename)
+    data = read_csv(filename)
     return _process_csv_file(data)
